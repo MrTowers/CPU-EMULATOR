@@ -27,3 +27,6 @@ instruction set:
     0x0d bne - branch when register A is not equal value
 
     define   - defines a constant variable
+
+
+ostatni problem: lda nie dziala

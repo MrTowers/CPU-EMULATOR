@@ -13,12 +13,12 @@ function start() {
 }
 function tick() {
     if (PC.stopped) {
-        console.log(PC);
+        //console.log(PC);
         return;
     }
     setTimeout(() => {
         PC.tick();
         console.log(`ra: ${PC.ra.value.toString(16)}, rb: ${PC.rb.value.toString(16)}, ic: ${PC.ic.value.toString(16)}`);
         tick();
-    }, 10);
+    }, 1000);
 }

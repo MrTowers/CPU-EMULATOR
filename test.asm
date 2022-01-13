@@ -3,19 +3,14 @@ define numberB 0x2
 define numberC 0x3
 define interations 0x4
 
-
-jmp init
-
 init:
     ila 5
     sta numberA
     sta numberB
-    jmp for
 
 for:
     lda numberB
     sta interations
-    jmp for2
 
 for2:
     ldb numberC
@@ -32,6 +27,6 @@ for2:
     jmp for2
 
 end:
-    ila 5
+    lda numberC
     cmd
     brk

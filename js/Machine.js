@@ -64,7 +64,7 @@ export class Machine {
                     break;
                 }
                 case 0x08: {
-                    console.log(`out data: ${this.ra.value.toString(16)}`);
+                    console.log(`out data: ${this.ra.value.toString()}`);
                     break;
                 }
                 case 0x09: {
@@ -81,13 +81,15 @@ export class Machine {
                 }
                 case 0x0c: {
                     if (this.ra.value == this.rb.value) {
-                        console.error("equal");
+                        //console.error("equal");
+                        this.jumped = true;
                         this.ic.setValue(val * 2);
                     }
                     break;
                 }
                 case 0x0d: {
                     if (this.ra.value != this.rb.value) {
+                        this.jumped = true;
                         this.ic.setValue(val * 2);
                     }
                     break;

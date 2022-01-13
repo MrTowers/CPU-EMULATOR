@@ -29,4 +29,4 @@ instruction set:
     define   - defines a constant variable
 
 
-ostatni problem: lda nie dziala
+ostatni problem: dodac zapis jump do beq, bne

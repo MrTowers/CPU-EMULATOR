@@ -96,7 +96,8 @@ export class Machine {
 
                 case 0x0c: {
                     if (this.ra.value == this.rb.value) {
-                        console.error("equal");
+                        //console.error("equal");
+                        this.jumped = true;
                         this.ic.setValue(val * 2);
                     }
                     break;
@@ -104,6 +105,7 @@ export class Machine {
 
                 case 0x0d: {
                     if (this.ra.value != this.rb.value) {
+                        this.jumped = true;
                         this.ic.setValue(val * 2);
                     }
                     break;

@@ -1,0 +1,29 @@
+memory allocation:
+    0x0000-0x00ff zero
+    0x0100-0x01ff stack
+    0x0600-0x0fff code
+    0x1000-0xffff general memory
+
+    0x00ff - input
+    0x00fe - random
+
+instruction set:
+    0x00 nop
+    0x01 lda - load to register A from memory
+    0x02 ldb - load to register B from memory
+    0x03 ila - immediate load value to register A
+    0x04 ilb - immediate load value to register B
+    0x05 add - ra = ra + rb
+    0x06 sub - ra = ra - rb
+    0x07 jmp - jumps to location
+    0x08 cmd - console.out
+    0x09 sta - store in memory from register A
+    0x0a stb - store in memory from register B
+    0x0b brk - stops program
+
+    branches:
+    
+    0x0c beq - branch when register A is equal value
+    0x0d bne - branch when register A is not equal value
+
+    define   - defines a constant variable

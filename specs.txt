@@ -29,4 +29,10 @@ instruction set:
     define   - defines a constant variable
 
 
-ostatni problem: dodac zapis jump do beq, bne
+ostatni problem: dodac zapis jump do beq, bne - chyba done
+
+dodac:
+    brh - branch on higher value
+    brl - branch on higher value
+    
+    

@@ -18,7 +18,7 @@ function tick() {
     }
     setTimeout(() => {
         PC.tick();
-        document.body.innerText = `command: ${PC.lastCommand}, ticks: ${PC.ticks}, ic: ${PC.ic.value}, stack: ${PC.sp.value}
+        document.body.innerText = `command: ${PC.lastCommand}, ticks: ${PC.ticks}, ic: ${PC.ic.value.toString(16)}, stack: ${PC.sp.value.toString(16)}
         ${PC.ram.getValueAtAdress(0x1ff).toString(16)}, 
         ${PC.ram.getValueAtAdress(0x1fe).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fd).toString(16)},
@@ -26,5 +26,5 @@ function tick() {
         ${PC.ram.getValueAtAdress(0x1fb).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fa).toString(16)},`;
         tick();
-    }, 1000);
+    }, 100);
 }

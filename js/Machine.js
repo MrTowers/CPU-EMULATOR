@@ -12,24 +12,30 @@ export class Machine {
         this.jumped = false;
         this.lastCommand = "";
         this.ticks = 0;
+        this.nops = 0;
     }
     tick() {
+        if (this.nops > 5) {
+            this.stopped = true;
+            alert("no code error");
+        }
         this.execute();
         if (this.jumped) {
             this.jumped = false;
         }
         else {
-            this.ic.setValue(this.ic.value += 2);
+            this.ic.setValue(this.ic.value + 2);
         }
         this.ticks++;
     }
     stackPush(value = 0) {
-        this.ram.adresses[this.sp.value + 0x100].setValue(value);
+        this.ram.setValueAtAdress(this.sp.value + 0x100, value);
         this.sp.setValue(this.sp.value - 1);
     }
     stackPop() {
         this.sp.setValue(this.sp.value + 1);
-        let value = this.ram.adresses[this.sp.value + 0x100].value;
+        let value = this.ram.getValueAtAdress(this.sp.value + 0x100);
+        this.ram.setValueAtAdress(this.sp.value + 0x100, 0);
         return value;
     }
     resetMemory() {
@@ -42,9 +48,10 @@ export class Machine {
         if (!this.stopped) {
             const cmd = this.ram.getValueAtAdress(0x0600 + this.ic.value);
             const val = this.ram.getValueAtAdress(0x0600 + this.ic.value + 1);
+            let nop = false;
             switch (cmd) {
                 case 0x00: {
-                    this.stopped = true;
+                    nop = true;
                     this.lastCommand = "nop";
                     break;
                 }
@@ -156,7 +163,7 @@ export class Machine {
                 }
                 case 0x13: {
                     let x = this.stackPop();
-                    this.ic.setValue(x * 2);
+                    this.ic.setValue(x);
                     this.lastCommand = "rts";
                     break;
                 }
@@ -164,6 +171,12 @@ export class Machine {
                     alert("runtime error");
                     this.stopped = true;
                 }
+            }
+            if (nop) {
+                this.nops++;
+            }
+            else {
+                this.nops = 0;
             }
         }
     }

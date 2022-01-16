@@ -158,6 +158,36 @@ export class Parser {
                     break;
                 }
 
+                case "brh": {
+                    instrnew.instruction = 0x0e;
+                    break;
+                }
+
+                case "brl": {
+                    instrnew.instruction = 0x0f;
+                    break;
+                }
+
+                case "mul": {
+                    instrnew.instruction = 0x10;
+                    break;
+                }
+
+                case "div": {
+                    instrnew.instruction = 0x11;
+                    break;
+                }
+
+                case "jsr": {
+                    instrnew.instruction = 0x12;
+                    break;
+                }
+
+                case "rts": {
+                    instrnew.instruction = 0x13;
+                    break;
+                }
+
                 default: {
                     alert("parsing error #2");
                     return;

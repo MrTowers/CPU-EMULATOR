@@ -25,16 +25,15 @@ instruction set:
     
     0x0c beq - branch when register A is equal value
     0x0d bne - branch when register A is not equal value
+    0x0e brh
+    0x0f brl
+
+    0x10 mul
+    0x11 div
+    0x12 jsr
+    0x13 rts
 
     define   - defines a constant variable
 
 
-ostatni problem: dodac zapis jump do beq, bne - chyba done
-
-dodac:
-    brh - branch on higher value
-    brl - branch on higher value
-    mul - ra = ra * rb
-    div - ra = ra / rb
-    
-    
+ostatni problem: stack generalnie dziala ale odczyt srednio

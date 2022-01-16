@@ -7,6 +7,7 @@ export class Machine {
         this.rb = new Byte();
         this.ram = new Memory();
         this.ic = new Int();
+        this.sp = new Byte(0xfe);
         this.stopped = false;
         this.jumped = false;
         this.lastCommand = "";
@@ -21,6 +22,15 @@ export class Machine {
             this.ic.setValue(this.ic.value += 2);
         }
         this.ticks++;
+    }
+    stackPush(value = 0) {
+        this.ram.adresses[this.sp.value + 0x100].setValue(value);
+        this.sp.setValue(this.sp.value - 1);
+    }
+    stackPop() {
+        this.sp.setValue(this.sp.value + 1);
+        let value = this.ram.adresses[this.sp.value + 0x100].value;
+        return value;
     }
     resetMemory() {
         this.ram.clear();
@@ -109,6 +119,45 @@ export class Machine {
                         this.ic.setValue(val * 2);
                         this.lastCommand = "bne";
                     }
+                    break;
+                }
+                case 0x0e: {
+                    if (this.ra.value > this.rb.value) {
+                        this.jumped = true;
+                        this.ic.setValue(val * 2);
+                        this.lastCommand = "brh";
+                    }
+                    break;
+                }
+                case 0x0f: {
+                    if (this.ra.value < this.rb.value) {
+                        this.jumped = true;
+                        this.ic.setValue(val * 2);
+                        this.lastCommand = "brl";
+                    }
+                    break;
+                }
+                case 0x10: {
+                    this.ra.setValue(this.ra.value * this.rb.value);
+                    this.lastCommand = "mul";
+                    break;
+                }
+                case 0x11: {
+                    this.ra.setValue(this.ra.value / this.rb.value);
+                    this.lastCommand = "div";
+                    break;
+                }
+                case 0x12: {
+                    this.stackPush(this.ic.value);
+                    this.ic.setValue(val * 2);
+                    this.jumped = true;
+                    this.lastCommand = "jsr";
+                    break;
+                }
+                case 0x13: {
+                    let x = this.stackPop();
+                    this.ic.setValue(x * 2);
+                    this.lastCommand = "rts";
                     break;
                 }
                 default: {

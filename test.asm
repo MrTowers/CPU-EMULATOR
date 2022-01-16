@@ -1,32 +1,19 @@
-define numberA 0x1
-define numberB 0x2
-define numberC 0x3
-define interations 0x4
+jsr in1
+jsr in2
+jsr in3
+brk
 
-init:
-    ila 5
-    sta numberA
-    sta numberB
-
-for:
-    lda numberB
-    sta interations
-
-for2:
-    ldb numberC
-    lda numberA
-    add
-    sta numberC
-    lda interations
-    ilb 1
-    sub
-    sta interations
-    lda interations
-    ilb 0
-    beq end
-    jmp for2
-
-end:
-    lda numberC
+in1:
+    ila 1
     cmd
-    brk
+    rts
+
+in2:
+    ila 2
+    cmd
+    rts
+
+in3:
+    ila 3
+    cmd
+    rts

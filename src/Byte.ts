@@ -7,6 +7,6 @@ export class Byte {
     }
 
     setValue (value = 0) {
-        this.value = value % this.max;
+        this.value = Math.floor(value % this.max);
     }
 }

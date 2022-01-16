@@ -7,14 +7,29 @@ loadJSON("test.asm", (data) => {
     code = data;
     start();
 });
+function wait(time = 0) {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            res(1);
+        }, time * 1000);
+    });
+}
 function start() {
     Parser.parse(PC, code);
     tick();
 }
-function tick() {
+export function sleepS(time = 0) {
+    sleepTime = time;
+}
+let sleepTime = 0;
+async function tick() {
     if (PC.stopped) {
         console.log(PC);
         return;
+    }
+    if (sleepTime) {
+        await wait(sleepTime);
+        sleepTime = 0;
     }
     setTimeout(() => {
         PC.ram.setValueAtAdress(0xfe, Math.random() * 0xff);
@@ -27,5 +42,5 @@ function tick() {
         ${PC.ram.getValueAtAdress(0x1fb).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fa).toString(16)},`;
         tick();
-    }, 100);
+    }, 0);
 }

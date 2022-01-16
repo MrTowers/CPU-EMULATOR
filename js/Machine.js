@@ -1,11 +1,7 @@
 import { Byte } from "./Byte.js";
 import { Int } from "./Int.js";
+import { sleepS } from "./main.js";
 import { Memory } from "./Memory.js";
-function wait(time = 0) {
-    return new Promise((res, rej) => {
-        setTimeout(res, time);
-    });
-}
 export class Machine {
     constructor() {
         this.ra = new Byte();
@@ -49,7 +45,7 @@ export class Machine {
         this.rb.setValue();
         this.ic.setValue();
     }
-    async execute() {
+    execute() {
         if (!this.stopped) {
             const cmd = this.ram.getValueAtAdress(0x0600 + this.ic.value);
             const val = this.ram.getValueAtAdress(0x0600 + this.ic.value + 1);
@@ -188,7 +184,7 @@ export class Machine {
                     break;
                 }
                 case 0x17: {
-                    await wait(val);
+                    sleepS(val);
                     break;
                 }
                 default: {

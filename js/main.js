@@ -17,6 +17,7 @@ function tick() {
         return;
     }
     setTimeout(() => {
+        PC.ram.setValueAtAdress(0xfe, Math.random() * 0xff);
         PC.tick();
         document.body.innerText = `command: ${PC.lastCommand}, ticks: ${PC.ticks}, ic: ${PC.ic.value.toString(16)}, stack: ${PC.sp.value.toString(16)}
         ${PC.ram.getValueAtAdress(0x1ff).toString(16)}, 

@@ -1,6 +1,11 @@
 import { Byte } from "./Byte.js";
 import { Int } from "./Int.js";
 import { Memory } from "./Memory.js";
+function wait(time = 0) {
+    return new Promise((res, rej) => {
+        setTimeout(res, time);
+    });
+}
 export class Machine {
     constructor() {
         this.ra = new Byte();
@@ -17,7 +22,7 @@ export class Machine {
     tick() {
         if (this.nops > 5) {
             this.stopped = true;
-            alert("no code error");
+            //alert("no code error");
         }
         this.execute();
         if (this.jumped) {
@@ -44,7 +49,7 @@ export class Machine {
         this.rb.setValue();
         this.ic.setValue();
     }
-    execute() {
+    async execute() {
         if (!this.stopped) {
             const cmd = this.ram.getValueAtAdress(0x0600 + this.ic.value);
             const val = this.ram.getValueAtAdress(0x0600 + this.ic.value + 1);
@@ -165,6 +170,25 @@ export class Machine {
                     let x = this.stackPop();
                     this.ic.setValue(x);
                     this.lastCommand = "rts";
+                    break;
+                }
+                case 0x14: {
+                    this.ra.setValue(this.ram.getValueAtAdress(val + this.rb.value));
+                    this.lastCommand = "laob";
+                    break;
+                }
+                case 0x15: {
+                    this.rb.setValue(this.ram.getValueAtAdress(val + this.ra.value));
+                    this.lastCommand = "lboa";
+                    break;
+                }
+                case 0x16: {
+                    this.ram.setValueAtAdress(this.rb.value + val, this.ra.value);
+                    this.lastCommand = "sto";
+                    break;
+                }
+                case 0x17: {
+                    await wait(val);
                     break;
                 }
                 default: {

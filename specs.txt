@@ -28,12 +28,15 @@ instruction set:
     0x0e brh
     0x0f brl
 
-    0x10 mul
-    0x11 div
-    0x12 jsr
-    0x13 rts
+    0x10 mul - ra = ra * rb
+    0x11 div - ra = ra / rb round
+    0x12 jsr - jump to location and save to stack
+    0x13 rts - return to position from stack
+
+    
+    0x14 laob - laob 0x05 (load 0x05 + B.value to A)
+    0x15 lboa - lboa 0x05 (load 0x05 + A.value to B)
+    0x16 sto - sto 0x05 (store 0x05 + B.value A.value)
+    0x17 slp - sleep for <value> ms
 
     define   - defines a constant variable
-
-
-ostatni problem: stack generalnie dziala ale odczyt srednio

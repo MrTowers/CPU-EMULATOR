@@ -36,8 +36,6 @@ export class Parser {
             }
         }
 
-        console.log(this.definedVars);
-
         const instructionarr = [];
 
         for (let i in objs) {
@@ -185,6 +183,26 @@ export class Parser {
 
                 case "rts": {
                     instrnew.instruction = 0x13;
+                    break;
+                }
+
+                case "laob": {
+                    instrnew.instruction = 0x14;
+                    break;
+                }
+
+                case "lboa": {
+                    instrnew.instruction = 0x15;
+                    break;
+                }
+
+                case "sto": {
+                    instrnew.instruction = 0x16;
+                    break;
+                }
+
+                case "slp": {
+                    instrnew.instruction = 0x17;
                     break;
                 }
 

@@ -22,6 +22,9 @@ export function sleepS(time = 0) {
     sleepTime = time;
 }
 let sleepTime = 0;
+document.addEventListener("keydown", (e) => {
+    PC.ram.setValueAtAdress(0xff, e.keyCode);
+});
 async function tick() {
     if (PC.stopped) {
         console.log(PC);

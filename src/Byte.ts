@@ -7,6 +7,11 @@ export class Byte {
     }
 
     setValue (value = 0) {
-        this.value = Math.floor(value % this.max);
+        if (value > 0xff) {
+            this.value = Math.floor(value % this.max);
+        }
+        else {
+            this.value = value;
+        }
     }
 }

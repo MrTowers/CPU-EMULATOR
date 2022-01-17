@@ -1,11 +1,14 @@
 import { Byte } from "./Byte.js";
+import { GPU } from "./GPU.js";
 import { loadJSON } from "./LoadJSON.js";
 import { Machine } from "./Machine.js";
 import { Parser } from "./Parser.js";
 
 let code = "";
+const info: HTMLDivElement = <HTMLDivElement> document.getElementById("info");
 
 const PC = new Machine();
+const gpu = new GPU();
 
 loadJSON("test.asm", (data) => {
     code = data;
@@ -47,13 +50,14 @@ async function tick () {
     setTimeout(() => {
         PC.ram.setValueAtAdress(0xfe, Math.random() * 0xff);
         PC.tick();
-        document.body.innerText = `command: ${PC.lastCommand}, ticks: ${PC.ticks}, ic: ${PC.ic.value.toString(16)}, stack: ${PC.sp.value.toString(16)}
+        info.innerText = `command: ${PC.lastCommand}, ticks: ${PC.ticks}, ic: ${PC.ic.value.toString(16)}, stack: ${PC.sp.value.toString(16)}
         ${PC.ram.getValueAtAdress(0x1ff).toString(16)}, 
         ${PC.ram.getValueAtAdress(0x1fe).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fd).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fc).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fb).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fa).toString(16)},`;
+        gpu.tick(PC);
         tick();
     }, 0);
 }

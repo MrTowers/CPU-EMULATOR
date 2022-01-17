@@ -1,6 +1,6 @@
 export class Byte {
     value: number = 0;
-    max: number = 0xff;
+    max: number = 0xffff;
 
     constructor (value = 0) {
         this.setValue(value);

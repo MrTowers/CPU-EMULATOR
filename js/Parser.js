@@ -43,7 +43,7 @@ export class Parser {
                     if (label == null) {
                         const defined = this._findDefinedByName(instr.value);
                         if (defined == null) {
-                            alert("parsing error #1" + instr.value);
+                            alert("parsing error #1");
                             return;
                         }
                         else {

@@ -27,7 +27,7 @@ document.addEventListener("keydown", (e) => {
 });
 async function tick() {
     if (PC.stopped) {
-        console.log(PC);
+        //console.log(PC);
         return;
     }
     if (sleepTime) {
@@ -45,5 +45,5 @@ async function tick() {
         ${PC.ram.getValueAtAdress(0x1fb).toString(16)},
         ${PC.ram.getValueAtAdress(0x1fa).toString(16)},`;
         tick();
-    }, 0);
+    }, 100);
 }

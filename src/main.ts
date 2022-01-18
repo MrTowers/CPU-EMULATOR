@@ -6,6 +6,9 @@ import { Parser } from "./Parser.js";
 
 let code = "";
 const info: HTMLDivElement = <HTMLDivElement> document.getElementById("info");
+const ram: HTMLDivElement = <HTMLDivElement> document.getElementById("ram");
+
+
 
 const PC = new Machine();
 const gpu = new GPU();
@@ -13,7 +16,25 @@ const gpu = new GPU();
 loadJSON("test.asm", (data) => {
     code = data;
     start();
+    drawRam();
 });
+
+function drawRam () {
+    ram.innerText = "";
+
+    let txt = "";
+
+    for (let i = 0; i < 4; i++){
+        let startVal = 0x1000;
+        let ramvalue = PC.ram.getValueAtAdress(Number(i + startVal));
+        txt += `${Number(i).toString(16)}: ${ramvalue.toString(16)}, `;
+        if (i % 10 == 0) {
+            txt += "\n";
+        }
+    }
+
+    ram.innerText = txt;
+}
 
 function wait (time = 0) {
     return new Promise((res, rej) => {
@@ -48,8 +69,15 @@ async function tick () {
         sleepTime = 0;
     }
     setTimeout(() => {
-        PC.ram.setValueAtAdress(0xfe, Math.random() * 0xff);
-        PC.tick();
+        PC.ram.setValueAtAdress(0xfe, Math.floor(Math.random() * 0xff));
+        try {
+            PC.tick();
+            drawRam();
+        }
+        catch (e) {
+            console.log("runtime error #2 at " + PC.ic.value);
+            PC.stopped = true;
+        }
         info.innerText = `command: ${PC.lastCommand}, ticks: ${PC.ticks}, ic: ${PC.ic.value.toString(16)}, stack: ${PC.sp.value.toString(16)}
         ${PC.ram.getValueAtAdress(0x1ff).toString(16)}, 
         ${PC.ram.getValueAtAdress(0x1fe).toString(16)},

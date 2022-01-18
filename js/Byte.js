@@ -5,7 +5,7 @@ export class Byte {
         this.setValue(value);
     }
     setValue(value = 0) {
-        if (value > 0xff) {
+        if (value > this.max) {
             this.value = Math.floor(value % this.max);
         }
         else {

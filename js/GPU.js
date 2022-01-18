@@ -12,7 +12,28 @@ export class GPU {
         for (let i = 0; i < 1024; i++) {
             let cell = PC.ram.getValueAtAdress(0x200 + i);
             if (cell) {
-                this.ctx.fillStyle = "white";
+                switch (cell) {
+                    case 1: {
+                        this.ctx.fillStyle = "white";
+                        break;
+                    }
+                    case 2: {
+                        this.ctx.fillStyle = "red";
+                        break;
+                    }
+                    case 3: {
+                        this.ctx.fillStyle = "green";
+                        break;
+                    }
+                    case 4: {
+                        this.ctx.fillStyle = "blue";
+                        break;
+                    }
+                    case 5: {
+                        this.ctx.fillStyle = "yellow";
+                        break;
+                    }
+                }
                 this.ctx.fillRect((i % 32) * this.canvas.width / 32, Math.floor(i / 32) * this.canvas.height / 32, this.canvas.width / 32, this.canvas.height / 32);
             }
         }

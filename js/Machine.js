@@ -151,7 +151,7 @@ export class Machine {
                     break;
                 }
                 case 0x11: {
-                    this.ra.setValue(this.ra.value / this.rb.value);
+                    this.ra.setValue(Math.floor(this.ra.value / this.rb.value));
                     this.lastCommand = "div";
                     break;
                 }

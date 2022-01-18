@@ -1,18 +1,25 @@
 define input 0xff
+define random 0xfe
+
 define player.pos 0x1000
 define player.score 0x1001
+define player.color 2
+
 define gpu 0x200
-define random 0xfe
 define score.pos 0x1002
+define score.color 3
 
 define w 87
 define a 65
 define s 83
 define d 68
 
+
 init:
     ila 0xff
     sta score.pos
+    ila -1
+    sta player.score
     jsr player.draw
     jsr score.generate
     jmp loop
@@ -22,7 +29,7 @@ loop:
     brk
 
 player.draw:
-    ila 1
+    ila player.color
     ldb player.pos
     sto gpu
     rts
@@ -47,6 +54,8 @@ score.generate:
 
     random.pos:
         lda random
+        ilb 30
+        div
         sta score.pos
         rts
 
@@ -58,7 +67,7 @@ score.generate:
         rts
 
     score.draw:
-        ila 1
+        ila score.color
         ldb score.pos
         sto gpu
         rts

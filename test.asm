@@ -54,8 +54,6 @@ score.generate:
 
     random.pos:
         lda random
-        ilb 30
-        div
         sta score.pos
         rts
 

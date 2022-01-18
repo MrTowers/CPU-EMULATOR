@@ -9,7 +9,7 @@ export class Parser {
                 line = line.slice(1, line.length);
             }
             line = line.split("\r")[0];
-            if (line != "" && !line.startsWith("define")) {
+            if (line != "" && !line.startsWith("define") && !line.startsWith(";") && !line.startsWith("image")) {
                 const linearr = line.split(" ");
                 const instruction = linearr[0];
                 const value = linearr[1];
@@ -22,6 +22,11 @@ export class Parser {
                 const name = linearr[1];
                 const value = Number(linearr[2]);
                 this.definedVars.push({ name, value });
+            }
+            if (line.startsWith("image")) {
+                line = line.split("image")[1];
+                line.trim();
+                //zrobic tuti
             }
         }
         const instructionarr = [];
@@ -194,3 +199,4 @@ export class Parser {
 }
 Parser.labels = [];
 Parser.definedVars = [];
+Parser.images = [];

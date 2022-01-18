@@ -4,6 +4,7 @@ import { Machine } from "./Machine.js";
 export class Parser {
     static labels: Label[] = [];
     static definedVars: any[] = [];
+    static images: any[] = [];
     static parse (machine: Machine, code: string) {
         const lines = code.split("\n");
 
@@ -19,7 +20,7 @@ export class Parser {
 
             line = line.split("\r")[0];
 
-            if (line != "" && !line.startsWith("define")) {
+            if (line != "" && !line.startsWith("define") && !line.startsWith(";") && !line.startsWith("image")) {
                 const linearr = line.split(" ");
                 const instruction = linearr[0];
                 const value = linearr[1];
@@ -33,6 +34,12 @@ export class Parser {
                 const name = linearr[1];
                 const value = Number(linearr[2]);
                 this.definedVars.push({name, value});
+            }
+
+            if (line.startsWith("image")) {
+                line = line.split("image")[1];
+                line.trim();
+                //zrobic tuti
             }
         }
 

@@ -43,4 +43,4 @@ instruction set:
     define   - defines a constant variable
 
     dodac:
-        ekran i graficzna pamiec
+        wczytywanie image

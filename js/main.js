@@ -45,7 +45,7 @@ document.addEventListener("keydown", (e) => {
 });
 async function tick() {
     if (PC.stopped) {
-        console.log(PC);
+        //console.log(PC);
         return;
     }
     if (sleepTime) {
@@ -56,7 +56,7 @@ async function tick() {
         PC.ram.setValueAtAdress(0xfe, Math.floor(Math.random() * 0xff));
         try {
             PC.tick();
-            drawRam();
+            //drawRam();
         }
         catch (e) {
             console.log("runtime error #2 at " + PC.ic.value);
@@ -71,5 +71,5 @@ async function tick() {
         ${PC.ram.getValueAtAdress(0x1fa).toString(16)},`;
         gpu.tick(PC);
         tick();
-    }, 0);
+    },  0);
 }

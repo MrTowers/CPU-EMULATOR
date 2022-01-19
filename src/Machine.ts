@@ -10,7 +10,7 @@ export class Machine {
     rb: Byte = new Byte();
     ram: Memory = new Memory();
     ic: Int = new Int();
-    sp: Byte = new Byte(0xfe);
+    sp: Byte = new Byte(0xff);
 
     stopped: boolean = false;
     jumped: boolean = false;

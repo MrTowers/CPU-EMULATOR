@@ -8,7 +8,7 @@ export class Machine {
         this.rb = new Byte();
         this.ram = new Memory();
         this.ic = new Int();
-        this.sp = new Byte(0xfe);
+        this.sp = new Byte(0xff);
         this.stopped = false;
         this.jumped = false;
         this.lastCommand = "";

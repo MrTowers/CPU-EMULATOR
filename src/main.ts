@@ -1,4 +1,5 @@
 import { Byte } from "./Byte.js";
+import { Chat } from "./Chat.js";
 import { GPU } from "./GPU.js";
 import { loadJSON } from "./LoadJSON.js";
 import { Machine } from "./Machine.js";
@@ -12,6 +13,8 @@ const ram: HTMLDivElement = <HTMLDivElement> document.getElementById("ram");
 
 const PC = new Machine();
 const gpu = new GPU();
+const chat = new Chat();
+PC.setchat(chat);
 
 loadJSON("test.asm", (data) => {
     code = data;

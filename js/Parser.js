@@ -165,6 +165,18 @@ export class Parser {
                     instrnew.instruction = 0x17;
                     break;
                 }
+                case "cho": {
+                    instrnew.instruction = 0x18;
+                    break;
+                }
+                case "ccl": {
+                    instrnew.instruction = 0x19;
+                    break;
+                }
+                case "crl": {
+                    instrnew.instruction = 0x1a;
+                    break;
+                }
                 default: {
                     alert("parsing error #2");
                     return;

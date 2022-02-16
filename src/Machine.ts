@@ -1,4 +1,5 @@
 import { Byte } from "./Byte.js";
+import { Chat } from "./Chat.js";
 import { Int } from "./Int.js";
 import { sleepS } from "./main.js";
 import { Memory } from "./Memory.js";
@@ -11,6 +12,7 @@ export class Machine {
     ram: Memory = new Memory();
     ic: Int = new Int();
     sp: Byte = new Byte(0xff);
+    output!: Chat;
 
     stopped: boolean = false;
     jumped: boolean = false;
@@ -34,12 +36,12 @@ export class Machine {
         this.ticks++;
     }
 
-    stackPush (value = 0) {
+    stackPush(value = 0) {
         this.ram.setValueAtAdress(this.sp.value + 0x100, value);
         this.sp.setValue(this.sp.value - 1);
     }
 
-    stackPop () {
+    stackPop() {
         this.sp.setValue(this.sp.value + 1);
         let value = this.ram.getValueAtAdress(this.sp.value + 0x100);
         this.ram.setValueAtAdress(this.sp.value + 0x100, 0);
@@ -51,6 +53,10 @@ export class Machine {
         this.ra.setValue();
         this.rb.setValue();
         this.ic.setValue();
+    }
+
+    setchat(chat: Chat) {
+        this.output = chat;
     }
 
     execute() {
@@ -169,7 +175,7 @@ export class Machine {
                     break;
                 }
 
-                case 0x10 : {
+                case 0x10: {
                     this.ra.setValue(this.ra.value * this.rb.value);
                     this.lastCommand = "mul";
                     break;
@@ -215,7 +221,31 @@ export class Machine {
                 }
 
                 case 0x17: {
+                    this.lastCommand = "slp";
                     sleepS(val);
+                    break;
+                }
+
+                case 0x18: {
+                    if (this.ra.value == 32) {
+                        this.output.addLetter("\xa0");
+                    }
+                    else {
+                        this.output.addLetter(String.fromCharCode(this.ra.value));
+                    }
+                    this.lastCommand = "cho";
+                    break;
+                }
+
+                case 0x19: {
+                    this.output.clear();
+                    this.lastCommand = "ccl";
+                    break;
+                }
+
+                case 0x1a: {
+                    this.output.removeLast();
+                    this.lastCommand = "crl";
                     break;
                 }
 
@@ -224,7 +254,7 @@ export class Machine {
                     this.stopped = true;
                 }
             }
-            
+
             if (nop) {
                 this.nops++;
             }

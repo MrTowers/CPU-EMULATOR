@@ -45,6 +45,9 @@ export class Machine {
         this.rb.setValue();
         this.ic.setValue();
     }
+    setchat(chat) {
+        this.output = chat;
+    }
     execute() {
         if (!this.stopped) {
             const cmd = this.ram.getValueAtAdress(0x0600 + this.ic.value);
@@ -184,7 +187,28 @@ export class Machine {
                     break;
                 }
                 case 0x17: {
+                    this.lastCommand = "slp";
                     sleepS(val);
+                    break;
+                }
+                case 0x18: {
+                    if (this.ra.value == 32) {
+                        this.output.addLetter("\xa0");
+                    }
+                    else {
+                        this.output.addLetter(String.fromCharCode(this.ra.value));
+                    }
+                    this.lastCommand = "cho";
+                    break;
+                }
+                case 0x19: {
+                    this.output.clear();
+                    this.lastCommand = "ccl";
+                    break;
+                }
+                case 0x1a: {
+                    this.output.removeLast();
+                    this.lastCommand = "crl";
                     break;
                 }
                 default: {

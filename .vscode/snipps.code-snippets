@@ -1,6 +1,0 @@
-{
-	"place letter":{
-		"prefix": "let",
-		"body": ["ila $1", "cho", "$2"]
-	}
-}

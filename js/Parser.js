@@ -177,6 +177,10 @@ export class Parser {
                     instrnew.instruction = 0x1a;
                     break;
                 }
+                case "rbt": {
+                    instrnew.instruction = 0x1b;
+                    break;
+                }
                 default: {
                     alert("parsing error #2");
                     return;

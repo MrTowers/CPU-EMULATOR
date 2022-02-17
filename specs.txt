@@ -37,14 +37,15 @@ instruction set:
     
     0x14 laob - laob 0x05 (load 0x05 + B.value to A)
     0x15 lboa - lboa 0x05 (load 0x05 + A.value to B)
-    0x16 sto - sto 0x05 (store 0x05 + B.value A.value)
-    0x17 slp - sleep for <value> ms
-    0x18 cho - character out from ASCII
-    0x19 ccl - chat clear
-    0x1a crl - chat remove last
+    0x16 sto  - sto 0x05 (store 0x05 + B.value A.value)
+    0x17 slp  - sleep for <value> ms
+    0x18 cho  - character out from ASCII
+    0x19 ccl  - chat clear
+    0x1a crl  - chat remove last
+    0x1b rbt  - reboot
     
 
-    define   - defines a constant variable
+    define    - defines a constant variable
 
     dodac:
         wczytywanie image

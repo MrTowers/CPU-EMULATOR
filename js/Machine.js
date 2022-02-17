@@ -40,7 +40,7 @@ export class Machine {
         return value;
     }
     resetMemory() {
-        this.ram.clear();
+        //this.ram.clear();
         this.ra.setValue();
         this.rb.setValue();
         this.ic.setValue();
@@ -192,11 +192,11 @@ export class Machine {
                     break;
                 }
                 case 0x18: {
-                    if (this.ra.value == 32) {
+                    if (val == 32) {
                         this.output.addLetter("\xa0");
                     }
                     else {
-                        this.output.addLetter(String.fromCharCode(this.ra.value));
+                        this.output.addLetter(String.fromCharCode(val));
                     }
                     this.lastCommand = "cho";
                     break;
@@ -209,6 +209,11 @@ export class Machine {
                 case 0x1a: {
                     this.output.removeLast();
                     this.lastCommand = "crl";
+                    break;
+                }
+                case 0x1b: {
+                    this.resetMemory();
+                    this.lastCommand = "rbt";
                     break;
                 }
                 default: {

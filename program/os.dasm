@@ -1,0 +1,36 @@
+ccl
+jsr os.text.boot
+slp 1
+ccl
+jmp main
+
+os.text.boot:
+ila 100
+cho
+ila 101
+cho
+ila 114
+cho
+ila 109
+cho
+ila 97
+cho
+ila 32
+cho
+ila 111
+cho
+ila 115
+cho
+ila 32
+cho
+ila 118
+cho
+ila 48
+cho
+ila 46
+cho
+ila 49
+cho
+ila 53
+cho
+rts

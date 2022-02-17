@@ -117,7 +117,7 @@ export class Machine {
                 }
                 case 0x0c: {
                     if (this.ra.value == this.rb.value) {
-                        //console.error("equal");
+                        this.stackPush(this.ic.value);
                         this.jumped = true;
                         this.ic.setValue(val * 2);
                         this.lastCommand = "beq";
@@ -126,6 +126,7 @@ export class Machine {
                 }
                 case 0x0d: {
                     if (this.ra.value != this.rb.value) {
+                        this.stackPush(this.ic.value);
                         this.jumped = true;
                         this.ic.setValue(val * 2);
                         this.lastCommand = "bne";
@@ -134,6 +135,7 @@ export class Machine {
                 }
                 case 0x0e: {
                     if (this.ra.value > this.rb.value) {
+                        this.stackPush(this.ic.value);
                         this.jumped = true;
                         this.ic.setValue(val * 2);
                         this.lastCommand = "brh";
@@ -142,6 +144,7 @@ export class Machine {
                 }
                 case 0x0f: {
                     if (this.ra.value < this.rb.value) {
+                        this.stackPush(this.ic.value);
                         this.jumped = true;
                         this.ic.setValue(val * 2);
                         this.lastCommand = "brl";
@@ -192,11 +195,11 @@ export class Machine {
                     break;
                 }
                 case 0x18: {
-                    if (val == 32) {
+                    if (this.ra.value == 32) {
                         this.output.addLetter("\xa0");
                     }
                     else {
-                        this.output.addLetter(String.fromCharCode(val));
+                        this.output.addLetter(String.fromCharCode(this.ra.value));
                     }
                     this.lastCommand = "cho";
                     break;
@@ -214,6 +217,11 @@ export class Machine {
                 case 0x1b: {
                     this.resetMemory();
                     this.lastCommand = "rbt";
+                    break;
+                }
+                case 0x1c: {
+                    this.output.addLetter(this.ra.value.toString());
+                    this.lastCommand = "nuo";
                     break;
                 }
                 default: {

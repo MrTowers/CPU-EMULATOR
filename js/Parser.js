@@ -181,6 +181,10 @@ export class Parser {
                     instrnew.instruction = 0x1b;
                     break;
                 }
+                case "nuo": {
+                    instrnew.instruction = 0x1c;
+                    break;
+                }
                 default: {
                     alert("parsing error #2");
                     return;

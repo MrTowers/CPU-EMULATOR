@@ -14,6 +14,8 @@ define a 65
 define s 83
 define d 68
 
+ccl
+
 
 init:
     ila 0xff
@@ -74,8 +76,12 @@ player.score.up:
     lda player.score
     ilb 1
     add
-    cmd
     sta player.score
+    lda player.score
+    ccl
+    nuo
+    ila 10
+    cho
     rts
 
 player.move:
@@ -137,9 +143,5 @@ player.move:
     checkPoint:
         lda player.pos
         ldb score.pos
-        beq pointEqual
+        beq score.generate
         rts
-
-        pointEqual:
-            jsr score.generate
-            rts

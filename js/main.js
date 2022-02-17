@@ -16,10 +16,17 @@ machineInside.style.backgroundColor = "black";
 document.body.appendChild(machineInside);
 const chat = new Chat();
 PC.setchat(chat);
-loadJSON("test.dasm", (data) => {
-    code = data;
-    start();
-    drawRam();
+let modules = [];
+loadJSON("program/os.dasm", (data) => {
+    modules.push(data);
+    loadJSON("program/program.dasm", (data) => {
+        modules.push(data);
+        for (let i in modules) {
+            code += `\n${modules[i]}`;
+        }
+        start();
+        drawRam();
+    });
 });
 function drawRam() {
     ram.innerText = "";
@@ -34,7 +41,7 @@ function drawRam() {
     }
     ram.innerText = txt;
 }
-let drawLogicScale = 0.1;
+let drawLogicScale = 0.25;
 let drawRamScale = drawLogicScale;
 function clamp(input = 0, min = 0, max = 0) {
     return Math.min(Math.max(input, min), max);

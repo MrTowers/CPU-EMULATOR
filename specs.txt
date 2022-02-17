@@ -43,6 +43,7 @@ instruction set:
     0x19 ccl  - chat clear
     0x1a crl  - chat remove last
     0x1b rbt  - reboot
+    0x1c nuo  - number out
     
 
     define    - defines a constant variable
